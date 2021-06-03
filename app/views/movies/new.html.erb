@@ -1,0 +1,18 @@
+<h1>Movies#new</h1>
+<p>Find me in app/views/movies/new.html.erb</p>
+
+<div class="container">
+
+<%= simple_form_for [ @list, @movie ] do |f| %>
+  <%= f.input :title %>
+  <%= f.input :overview %>
+  <%= f.input :rating %>
+  <%= simple_fields_for :other do |o| %>
+    <%= o.input :comment, as: :text, label: 'Comment..' %>
+  <% end %>
+    <%= f.submit "Submit", class: "btn btn-primary" %>
+<% end %>
+
+
+
+</div>
