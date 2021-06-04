@@ -4,8 +4,8 @@ class ListsController < ApplicationController
   end
 
   def show
-
     @list = List.find(params[:id])
+    @movies = @list.movies
   end
 
   def new
@@ -23,6 +23,12 @@ class ListsController < ApplicationController
 
   def list_params
     params.require(:list).permit(:name)
+  end
+
+  def destroy
+    @list = List.find(params[:id])
+    raise
+    #@list.movies.find()
   end
 
 end

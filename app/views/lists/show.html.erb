@@ -5,20 +5,37 @@
 
 <%= link_to "Add a movie", new_list_movie_path(@list), class: "btn btn-success" %>
 
-<div class="container">
-<div class="card" style="width: 18rem;">
-  <img src="..." class="card-img-top" alt="...">
-  <% @list.movies.each do |movie| %>
-  <div class="card-body">
-    <h5 class="card-title"> <%= movie.title %></h5>
-    <p class="card-text"><%= movie.overview %></p>
-    <p class="card-text"><%= movie.rating %></p>
-    <a href="#" class="btn btn-primary">Go somewhere</a>
-  </div>
-  <% end %>
-</div>
-</div>
+<div id="movies-container" class="container">
 
+  <div class="row">
+  <% @movies.each do |movie| %>
+    <div class="col-12 col-md-3 col-lg-4">
+      <div class="card my-3">
+       <% if movie.photos.any? %>
+          <%= cl_image_tag(movie.photos.first.key,crop: :fill) %>
+        <% end %>
+        <% bookmark = Bookmark.find_by(list: @list, movie: movie) %>
+        <%# movie.photos.each do |photo| %>
+          <%#= cl_image_tag(photo.key,
+              width: 400, height: 300, crop: :fill) %>
+        <%#end %>
+        <div class="card-body">
+          <h5 class="card-title"> <%= movie.title %></h5>
+          <p class="card-text"><%= movie.overview %></p>
+          <p class="card-text"><%= movie.rating %></p>
+          <%= link_to "Delete from the list",
+            bookmark_path(bookmark),
+            method: :delete,
+            data: { confirm: "Are you sure?" } %>
+          <button class="btn btn-danger"><i class="fas fa-trash-alt"></i> </button>
+        </div>
+
+      </div>
+    </div>
+  <% end %>
+  </div>
+
+</div>
 
 
 
